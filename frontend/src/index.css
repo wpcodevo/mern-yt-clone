@@ -65,3 +65,7 @@ li {
   display: flex;
   align-items: center;
 }
+
+.section {
+  padding: 10rem 0 5rem 0;
+}

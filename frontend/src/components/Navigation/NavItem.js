@@ -228,7 +228,7 @@ const NavItem = ({ item }) => {
       {item.subMenu && (
         <>
           <Input type='checkbox' id={item.label} />
-          <Label for={item.label}>
+          <Label htmlFor={item.label}>
             {item.title}
             <span>
               <i className='fas fa-chevron-down'></i>
@@ -239,7 +239,7 @@ const NavItem = ({ item }) => {
             {item.subMenu.map((item, index) => {
               return (
                 <DropItem key={index}>
-                  <DropLink path={item.path}>{item.title}</DropLink>
+                  <DropLink to={item.path}>{item.title}</DropLink>
                 </DropItem>
               )
             })}
@@ -250,10 +250,10 @@ const NavItem = ({ item }) => {
       {item.megaMenu && (
         <>
           <Input type='checkbox' id={item.label} />
-          <Label for={item.label}>
+          <Label htmlFor={item.label}>
             {item.title}
             <span>
-              <i class='fas fa-chevron-down'></i>
+              <i className='fas fa-chevron-down'></i>
             </span>
           </Label>
           <MegaMenu>
