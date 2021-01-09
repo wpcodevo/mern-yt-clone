@@ -14,7 +14,7 @@
   box-sizing: inherit;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
 
 html {
   box-sizing: border-box;
@@ -22,7 +22,7 @@ html {
 }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   font-size: 1.6rem;
   background-color: var(--white);
   color: var(--black);
@@ -572,7 +572,7 @@ nav .wrapper {
 }
 
 .promotion-item::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -791,7 +791,7 @@ nav .wrapper {
 }
 
 .advert-layout .item::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
@@ -1074,7 +1074,7 @@ th:last-child {
 }
 
 .product-detail .right select {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   width: 20rem;
   padding: 0.7rem;
   border: 1px solid var(--grey1);
@@ -1203,7 +1203,7 @@ th:last-child {
 }
 
 .col-3-of-4 form select {
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   padding: 1rem;
   width: 10rem;
   border: 1px solid #f2f2f2;

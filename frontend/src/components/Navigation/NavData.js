@@ -11,6 +11,9 @@ const NavBarData = [
     title: 'Shop',
     path: '/shop',
     icon: <i className='fas fa-chevron-down'></i>,
+    class: 'desktopLink',
+    label: 'showMega',
+
     megaMenu: [
       {
         title: 'Shop Layout',
@@ -85,6 +88,8 @@ const NavBarData = [
     title: 'Vendors',
     path: '/',
     icon: <i className='fas fa-chevron-down'></i>,
+    label: 'showdrop1',
+    class: 'desktopLink',
 
     subMenu: [
       {
@@ -101,6 +106,8 @@ const NavBarData = [
     title: 'Page',
     path: '/',
     icon: <i className='fas fa-chevron-down'></i>,
+    label: 'showdrop2',
+    class: 'desktopLink',
 
     subMenu: [
       {

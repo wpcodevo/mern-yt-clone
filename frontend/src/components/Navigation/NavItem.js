@@ -16,6 +16,17 @@ const NavLink = styled(Link)`
   span {
     margin-left: 0.3rem;
   }
+
+  @media (max-width: 996px) {
+    display: block;
+    font-size: 1.8rem;
+    padding: 0 2rem;
+    color: var(--black);
+
+    &.desktopLink {
+      display: none;
+    }
+  }
 `
 
 const DropMenu = styled.ul`
@@ -28,6 +39,23 @@ const DropMenu = styled.ul`
   opacity: 0;
   visibility: hidden;
   transition: all 300ms ease;
+
+  @media (max-width: 996px) {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    top: 6.5rem;
+    padding-left: 2rem;
+    width: 100%;
+    max-height: 0;
+    overflow: hidden;
+  }
+`
+
+const DropItem = styled.li`
+  @media (max-width: 996px) {
+    margin: 0;
+  }
 `
 
 const DropLink = styled(Link)`
@@ -40,6 +68,11 @@ const DropLink = styled(Link)`
 
   :hover {
     color: var(--primary);
+  }
+
+  @media (max-width: 996px) {
+    color: var(--grey2);
+    font-size: 1.5rem;
   }
 `
 
@@ -54,12 +87,28 @@ const MegaMenu = styled.div`
   opacity: 0;
   visibility: hidden;
   transition: all 300ms ease;
+
+  @media (max-width: 996px) {
+    position: static;
+    top: 6.5rem;
+    padding: 0 2rem;
+    opacity: 1;
+    visibility: visible;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 300ms ease;
+  }
 `
 const Content = styled.div`
   padding: 2.5rem 2rem;
   display: flex;
   width: 100%;
   justify-content: space-between;
+
+  @media (max-width: 996px) {
+    flex-direction: column;
+    padding: 2rem 2rem 0 2rem;
+  }
 `
 
 const Row = styled.div`
@@ -71,6 +120,17 @@ const Row = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  @media (max-width: 996px) {
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+    margin-bottom: 1.5rem;
+
+    :nth-child(1),
+    :nth-child(2) {
+      border-top: 0;
+    }
+  }
 `
 const Header = styled.header`
   font-size: 1.6rem;
@@ -80,10 +140,19 @@ const Header = styled.header`
 const MegaList = styled.ul`
   border-left: 1px solid rgba(255, 255, 255, 0.09);
   margin-left: -4rem;
+
+  @media (max-width: 996px) {
+    border-left: 0;
+    padding-left: 2rem;
+  }
 `
 
 const MegaItem = styled.li`
   padding: 0 2rem;
+
+  @media (max-width: 996px) {
+    margin: 0;
+  }
 `
 
 const MegaLink = styled(Link)`
@@ -113,52 +182,104 @@ const NavItemWrapper = styled.li`
     visibility: visible;
     top: 6.5rem;
   }
+
+  @media (max-width: 996px) {
+    margin: 1.5rem 1rem;
+  }
+`
+
+const Input = styled.input`
+  display: none;
+
+  :checked ~ ${DropMenu},:checked ~ ${MegaMenu} {
+    max-height: 100%;
+  }
+`
+
+const Label = styled.label`
+  display: none;
+
+  span {
+    margin-left: 0.3rem;
+  }
+
+  @media (max-width: 996px) {
+    display: block;
+    font-size: 1.8rem;
+    padding-left: 2rem;
+    color: var(--black);
+    cursor: pointer;
+    border-radius: 0.5rem;
+
+    :hover {
+      color: var(--primary);
+    }
+  }
 `
 
 const NavItem = ({ item }) => {
   return (
     <NavItemWrapper>
-      <NavLink to={item.path}>
+      <NavLink to={item.path} className={item.class}>
         {item.title}
         <span>{item.subMenu && item.icon}</span>
         <span>{item.megaMenu && item.icon}</span>
       </NavLink>
       {item.subMenu && (
-        <DropMenu>
-          {item.subMenu.map((item, index) => {
-            return (
-              <DropLink key={index} path={item.path}>
-                {item.title}
-              </DropLink>
-            )
-          })}
-        </DropMenu>
+        <>
+          <Input type='checkbox' id={item.label} />
+          <Label for={item.label}>
+            {item.title}
+            <span>
+              <i className='fas fa-chevron-down'></i>
+            </span>
+          </Label>
+
+          <DropMenu>
+            {item.subMenu.map((item, index) => {
+              return (
+                <DropItem key={index}>
+                  <DropLink path={item.path}>{item.title}</DropLink>
+                </DropItem>
+              )
+            })}
+          </DropMenu>
+        </>
       )}
 
       {item.megaMenu && (
-        <MegaMenu>
-          <Content>
-            <Row>
-              <img src='/images/woman.jpg' alt='' />
-            </Row>
-            {item.megaMenu.map((item, index) => {
-              return (
-                <Row key={index}>
-                  <Header>{item.title}</Header>
-                  <MegaList>
-                    <MegaItem>
-                      {item.subItem.map((item, index) => (
-                        <MegaLink to={item.path} key={index}>
-                          {item.title}
-                        </MegaLink>
-                      ))}
-                    </MegaItem>
-                  </MegaList>
-                </Row>
-              )
-            })}
-          </Content>
-        </MegaMenu>
+        <>
+          <Input type='checkbox' id={item.label} />
+          <Label for={item.label}>
+            {item.title}
+            <span>
+              <i class='fas fa-chevron-down'></i>
+            </span>
+          </Label>
+          <MegaMenu>
+            <Content>
+              <Row>
+                <img src='/images/woman.jpg' alt='' />
+              </Row>
+              {item.megaMenu.map((item, index) => {
+                return (
+                  <Row key={index}>
+                    <Header>{item.title}</Header>
+                    <MegaList>
+                      <MegaItem>
+                        {item.subItem.map((item, index) => (
+                          <MegaLink to={item.path} key={index}>
+                            {item.title}
+                          </MegaLink>
+                        ))}
+                      </MegaItem>
+                    </MegaList>
+                  </Row>
+                )
+              })}
+            </Content>
+          </MegaMenu>
+        </>
       )}
     </NavItemWrapper>
   )

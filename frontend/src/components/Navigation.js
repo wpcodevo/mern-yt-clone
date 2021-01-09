@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Styled from 'styled-components'
 
@@ -38,7 +38,22 @@ const LogoWrapper = Styled.div`
 }
 `
 
+const Label = Styled.label`
+display:none;
+
+@media (max-width: 996px){
+  display: block;
+color: var(--black);
+font-size: 2rem;
+  cursor: pointer;
+}
+`
+
 const Navigation = () => {
+  const [menu, setMenu] = useState(false)
+
+  const showMenu = () => setMenu(true)
+
   return (
     <Nav>
       <Wrapper className='container'>
@@ -47,7 +62,10 @@ const Navigation = () => {
             BLOGSHOP
           </Link>
         </LogoWrapper>
-        <NavList />
+        <NavList menu={menu} setMenu={setMenu} />
+        <Label onClick={showMenu}>
+          <i class='fas fa-bars'></i>
+        </Label>
       </Wrapper>
     </Nav>
   )
