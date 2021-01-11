@@ -64,7 +64,7 @@ const Navigation = () => {
         </LogoWrapper>
         <NavList menu={menu} setMenu={setMenu} />
         <Label onClick={showMenu}>
-          <i class='fas fa-bars'></i>
+          <i className='fas fa-bars'></i>
         </Label>
       </Wrapper>
     </Nav>

@@ -18,13 +18,19 @@ connectDB()
 app.get('/api/products', (req, res, next) => {
   res.status(200).json({
     status: 'success',
-    data: productData,
+    products: productData,
   })
-
-  next()
 })
 
-const PORT = process.env.PORT || 5500
+app.get('/api/products/:id', (req, res, next) => {
+  const product = productData.find(p => p._id === req.params.id)
+  res.status(200).json({
+    status: 'success',
+    product,
+  })
+})
+
+const PORT = process.env.PORT || 5100
 
 const server = app.listen(
   PORT,

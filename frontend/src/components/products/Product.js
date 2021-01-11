@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import axios from 'axios'
 
 import Title from '../Title'
-import ProductData from './ProductData'
 
 const Wrapper = styled.div`
   display: grid;
@@ -91,13 +90,13 @@ const Product = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await axios.get(`http://127.0.0.1:5500/api/products`)
+      const { data } = await axios.get(`/api/products`)
 
       setProducts(data.products)
     }
 
     fetchProducts()
-  })
+  }, [])
 
   return (
     <section className='section'>

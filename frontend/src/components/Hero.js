@@ -105,7 +105,7 @@ const Hero = () => {
         <SubTitle>Exclusive Sales</SubTitle>
         <Title>UP TO 50% OFF ON SALES</Title>
         <Small>Get all exclusive offers for the season</Small>
-        <HeroLink>View Collection</HeroLink>
+        <HeroLink to='/'>View Collection</HeroLink>
       </Left>
 
       <Right>
