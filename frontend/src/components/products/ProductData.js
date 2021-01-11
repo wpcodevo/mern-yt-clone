@@ -35,6 +35,18 @@ const ProductData = [
     url: '/images/product6.jpg',
     price: 150,
   },
+  {
+    _id: '7',
+    title: 'Bambi Print Mini Backpack',
+    url: '/images/product7.jpg',
+    price: 150,
+  },
+  {
+    _id: '8',
+    title: 'Bambi Print Mini Backpack',
+    url: '/images/product8.jpg',
+    price: 150,
+  },
 ]
 
 export default ProductData

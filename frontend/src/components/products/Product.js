@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from 'axios'
 
 import Title from '../Title'
 import ProductData from './ProductData'
@@ -86,6 +87,18 @@ const PriceLabel = styled.span`
 const Price = styled.div``
 
 const Product = () => {
+  const [products, setProducts] = useState([])
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data } = await axios.get(`http://127.0.0.1:5500/api/products`)
+
+      setProducts(data.products)
+    }
+
+    fetchProducts()
+  })
+
   return (
     <section className='section'>
       <Title
@@ -94,14 +107,16 @@ const Product = () => {
       />
 
       <Wrapper className='container'>
-        {ProductData.map((item, index) => (
+        {products.map((item, index) => (
           <ProductItem key={index}>
-            <ImgContainer>
-              <img src={item.url} alt={item.title} />
-              <IconWrapper>
-                <i className='fas fa-shopping-cart'></i>
-              </IconWrapper>
-            </ImgContainer>
+            <Link to={`/products/${item._id}`}>
+              <ImgContainer>
+                <img src={item.url} alt={item.title} />
+                <IconWrapper>
+                  <i className='fas fa-shopping-cart'></i>
+                </IconWrapper>
+              </ImgContainer>
+            </Link>
             <Bottom>
               <ProductLink to={`/products/${item._id}`}>
                 {item.title}
