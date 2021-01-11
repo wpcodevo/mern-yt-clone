@@ -1,11 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
-
-import ProductData from '../components/products/ProductData'
 
 const ProductDetails = styled.section`
   margin-top: 5rem;
@@ -127,6 +126,18 @@ const Discription = styled.p`
 `
 
 const ProductScreen = ({ match }) => {
+  const [product, setProduct] = useState([])
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      const { data } = await axios.get(`/api/products/${match.params.id}`)
+
+      setProduct(data.product)
+    }
+
+    fetchProduct()
+  }, [match.params.id])
+
   return (
     <>
       <Navigation />
@@ -134,32 +145,32 @@ const ProductScreen = ({ match }) => {
         <Details className='container'>
           <Left>
             <Main>
-              <img src={`/images/product${match.params.id}.jpg`} alt='' />
+              <img src={product.image} alt='' />
             </Main>
             <Thumbnails>
               <Thumbnail>
-                <img src={`/images/product${match.params.id}.jpg`} alt='' />
+                <img src={product.image} alt='' />
               </Thumbnail>
               <Thumbnail>
-                <img src={`/images/product${match.params.id}.jpg`} alt='' />
+                <img src={product.image} alt='' />
               </Thumbnail>
               <Thumbnail>
-                <img src={`/images/product${match.params.id}.jpg`} alt='' />
+                <img src={product.image} alt='' />
               </Thumbnail>
               <Thumbnail>
-                <img src={`/images/product${match.params.id}.jpg`} alt='' />
+                <img src={product.image} alt='' />
               </Thumbnail>
             </Thumbnails>
           </Left>
 
           <Right>
             <CatLabel>Home/T-shirt</CatLabel>
-            <Title>Bambi Print Mini Backpack</Title>
-            <Price>$500</Price>
+            <Title>{product.title}</Title>
+            <Price>${product.price}</Price>
             <Form>
               <div>
                 <Select>
-                  <option value='Select Size' selected disabled>
+                  <option value='Select Size' defaultValue disabled>
                     Select Size
                   </option>
                   <option value='1'>32</option>
@@ -177,12 +188,7 @@ const ProductScreen = ({ match }) => {
               <LinkWrapper to='/cart'>Add To Cart</LinkWrapper>
             </Form>
             <Heading>Product Detail</Heading>
-            <Discription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero
-              minima delectus nulla voluptates nesciunt quidem laudantium,
-              quisquam voluptas facilis dicta in explicabo, laboriosam ipsam
-              suscipit!
-            </Discription>
+            <Discription>{product.description}</Discription>
           </Right>
         </Details>
       </ProductDetails>

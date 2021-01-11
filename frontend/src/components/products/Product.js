@@ -110,7 +110,7 @@ const Product = () => {
           <ProductItem key={index}>
             <Link to={`/products/${item._id}`}>
               <ImgContainer>
-                <img src={item.url} alt={item.title} />
+                <img src={item.image} alt={item.title} />
                 <IconWrapper>
                   <i className='fas fa-shopping-cart'></i>
                 </IconWrapper>
