@@ -16,7 +16,10 @@ const connectDB = async () => {
     useUnifiedTopology: true,
   })
 
-  console.log(`Database conneccted successfully on ${conn.connection.host}`)
+  console.log(
+    `Database conneccted successfully on ${conn.connection.host}`.cyan.underline
+      .bold
+  )
 }
 
 export default connectDB

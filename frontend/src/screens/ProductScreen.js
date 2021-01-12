@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
+import Rating from '../components/Rating'
 
 const ProductDetails = styled.section`
   margin-top: 5rem;
@@ -60,7 +61,6 @@ const CatLabel = styled.span`
 
 const Right = styled.div`
   div {
-    display: inline-block;
     position: relative;
     z-index: 1;
   }
@@ -77,47 +77,30 @@ const Price = styled.div`
   color: var(--primary);
   margin-bottom: 2rem;
 `
-const Form = styled.form`
-  margin-bottom: 2rem;
-
-  &.form {
-    margin-bottom: 3rem;
-  }
-`
-
-const Select = styled.select`
-  font-family: 'Poppins', sans-serif;
-  width: 20rem;
-  padding: 0.7rem;
-  border: 1px solid var(--grey1);
-  appearance: none;
-  outline: none;
-`
-const IconWrapper = styled.span`
-  position: absolute;
-  top: 50%;
-  right: 1rem;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  z-index: 0;
-`
-
-const Input = styled.input`
-  padding: 0.8rem;
-  text-align: center;
-  width: 3.5rem;
-  margin-right: 2rem;
-`
 
 const LinkWrapper = styled(Link)`
+  display: inline-block;
   background: var(--primary);
   padding: 0.8rem 4rem;
   color: var(--white);
   border-radius: 3rem;
+  margin-bottom: 2rem;
+
+  &.disabled{
+    cursor: default,
+    pointer-events: none;
+    color: var(--white);
+    background: var(--grey1);
+  }
 `
 
 const Heading = styled.h3`
   text-transform: uppercase;
+  margin-bottom: 1rem;
+`
+
+const InStock = styled.span`
+  display: block;
   margin-bottom: 2rem;
 `
 
@@ -166,28 +149,24 @@ const ProductScreen = ({ match }) => {
           <Right>
             <CatLabel>Home/T-shirt</CatLabel>
             <Title>{product.title}</Title>
+            <Rating value={product.rating} />
             <Price>${product.price}</Price>
-            <Form>
-              <div>
-                <Select>
-                  <option value='Select Size' defaultValue disabled>
-                    Select Size
-                  </option>
-                  <option value='1'>32</option>
-                  <option value='2'>42</option>
-                  <option value='3'>52</option>
-                  <option value='4'>62</option>
-                </Select>
-                <IconWrapper>
-                  <i className='fas fa-chevron-down'></i>
-                </IconWrapper>
-              </div>
-            </Form>
-            <Form>
-              <Input type='text' placeholder='1' />
+            <InStock>
+              Status: {product.countInStock === 0 ? 'Out of Stock' : 'In Stock'}
+            </InStock>
+            {product.countInStock === 0 ? (
+              <LinkWrapper
+                to='#'
+                className='disabled'
+                onClick={event => event.preventDefault()}
+              >
+                Add To Cart
+              </LinkWrapper>
+            ) : (
               <LinkWrapper to='/cart'>Add To Cart</LinkWrapper>
-            </Form>
-            <Heading>Product Detail</Heading>
+            )}
+
+            <Heading>Product Description</Heading>
             <Discription>{product.description}</Discription>
           </Right>
         </Details>
