@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
 import productRouter from './routes/productRoutes.js'
+import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 process.on('uncaughtException', err => {
   console.log(err.name, err.message)
@@ -34,3 +35,6 @@ process.on('unhandledRejection', () => {
     process.exit(1)
   })
 })
+
+app.use(notFound)
+app.use(errorHandler)
