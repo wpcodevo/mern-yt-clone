@@ -92,7 +92,7 @@ const Product = () => {
     const fetchProducts = async () => {
       const { data } = await axios.get(`/api/products`)
 
-      setProducts(data.products)
+      setProducts(data.data.products)
     }
 
     fetchProducts()
@@ -110,7 +110,7 @@ const Product = () => {
           <ProductItem key={index}>
             <Link to={`/products/${item._id}`}>
               <ImgContainer>
-                <img src={item.image} alt={item.title} />
+                <img src={item.image} alt={item.name} />
                 <IconWrapper>
                   <i className='fas fa-shopping-cart'></i>
                 </IconWrapper>
@@ -118,7 +118,7 @@ const Product = () => {
             </Link>
             <Bottom>
               <ProductLink to={`/products/${item._id}`}>
-                {item.title}
+                {item.name}
               </ProductLink>
               <Price>
                 <PriceLabel>${item.price}</PriceLabel>

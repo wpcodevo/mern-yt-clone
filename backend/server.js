@@ -2,7 +2,7 @@ import express from 'express'
 import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
-import productData from './data/products.js'
+import productRouter from './routes/productRoutes.js'
 
 process.on('uncaughtException', err => {
   console.log(err.name, err.message)
@@ -16,20 +16,7 @@ const app = express()
 // Database
 connectDB()
 
-app.get('/api/products', (req, res, next) => {
-  res.status(200).json({
-    status: 'success',
-    products: productData,
-  })
-})
-
-app.get('/api/products/:id', (req, res, next) => {
-  const product = productData.find(p => p._id === req.params.id)
-  res.status(200).json({
-    status: 'success',
-    product,
-  })
-})
+app.use('/api/products', productRouter)
 
 const PORT = process.env.PORT || 5100
 

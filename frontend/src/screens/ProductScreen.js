@@ -115,7 +115,7 @@ const ProductScreen = ({ match }) => {
     const fetchProduct = async () => {
       const { data } = await axios.get(`/api/products/${match.params.id}`)
 
-      setProduct(data.product)
+      setProduct(data.data.product)
     }
 
     fetchProduct()
@@ -148,7 +148,7 @@ const ProductScreen = ({ match }) => {
 
           <Right>
             <CatLabel>Home/T-shirt</CatLabel>
-            <Title>{product.title}</Title>
+            <Title>{product.name}</Title>
             <Rating value={product.rating} />
             <Price>${product.price}</Price>
             <InStock>
