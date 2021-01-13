@@ -107,7 +107,7 @@ const Product = () => {
       />
 
       {loading ? (
-        <CustomLoader type='Oval' color=' #ff4545' />
+        <CustomLoader type='Oval' />
       ) : error ? (
         <Message type='danger' message={error} title='' />
       ) : (

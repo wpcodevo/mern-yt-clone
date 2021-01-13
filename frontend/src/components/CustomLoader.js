@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
+  margin-top: 30rem;
 `
 
 const CustomLoader = ({ type, color }) => {
@@ -16,6 +17,10 @@ const CustomLoader = ({ type, color }) => {
       <Loader type={type} color={color} height={50} width={50} timeout={3000} />
     </Wrapper>
   )
+}
+
+CustomLoader.defaultProps = {
+  color: '#ff4545',
 }
 
 export default CustomLoader

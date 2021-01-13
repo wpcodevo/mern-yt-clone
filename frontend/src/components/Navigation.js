@@ -13,6 +13,7 @@ position: fixed;
   background-color: var(--white);
   height: 6.5rem;
   line-height: 6.5rem;
+  grid-area: header
 
   .fix-nav {
   width: 100%;

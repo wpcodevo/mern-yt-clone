@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import Rating from '../components/Rating'
+
+import { listProductDetails } from '../actions/productActions'
+import CustomLoader from '../components/CustomLoader'
+import Message from '../components/Message'
 
 const ProductDetails = styled.section`
   margin-top: 5rem;
@@ -109,68 +113,72 @@ const Discription = styled.p`
 `
 
 const ProductScreen = ({ match }) => {
-  const [product, setProduct] = useState([])
+  const dispatch = useDispatch()
+  const ProductDetail = useSelector(state => state.productDetails)
+
+  const { loading, error, product } = ProductDetail
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${match.params.id}`)
-
-      setProduct(data.data.product)
-    }
-
-    fetchProduct()
-  }, [match.params.id])
+    dispatch(listProductDetails(match.params.id))
+  }, [dispatch, match])
 
   return (
     <>
       <Navigation />
-      <ProductDetails className='section'>
-        <Details className='container'>
-          <Left>
-            <Main>
-              <img src={product.image} alt='' />
-            </Main>
-            <Thumbnails>
-              <Thumbnail>
+      {loading ? (
+        <CustomLoader type='Oval' />
+      ) : error ? (
+        <Message title='' message={error} type='danger' />
+      ) : (
+        <ProductDetails className='section'>
+          <Details className='container'>
+            <Left>
+              <Main>
                 <img src={product.image} alt='' />
-              </Thumbnail>
-              <Thumbnail>
-                <img src={product.image} alt='' />
-              </Thumbnail>
-              <Thumbnail>
-                <img src={product.image} alt='' />
-              </Thumbnail>
-              <Thumbnail>
-                <img src={product.image} alt='' />
-              </Thumbnail>
-            </Thumbnails>
-          </Left>
+              </Main>
+              <Thumbnails>
+                <Thumbnail>
+                  <img src={product.image} alt='' />
+                </Thumbnail>
+                <Thumbnail>
+                  <img src={product.image} alt='' />
+                </Thumbnail>
+                <Thumbnail>
+                  <img src={product.image} alt='' />
+                </Thumbnail>
+                <Thumbnail>
+                  <img src={product.image} alt='' />
+                </Thumbnail>
+              </Thumbnails>
+            </Left>
 
-          <Right>
-            <CatLabel>Home/T-shirt</CatLabel>
-            <Title>{product.name}</Title>
-            <Rating value={product.rating} />
-            <Price>${product.price}</Price>
-            <InStock>
-              Status: {product.countInStock === 0 ? 'Out of Stock' : 'In Stock'}
-            </InStock>
-            {product.countInStock === 0 ? (
-              <LinkWrapper
-                to='#'
-                className='disabled'
-                onClick={event => event.preventDefault()}
-              >
-                Add To Cart
-              </LinkWrapper>
-            ) : (
-              <LinkWrapper to='/cart'>Add To Cart</LinkWrapper>
-            )}
+            <Right>
+              <CatLabel>Home/T-shirt</CatLabel>
+              <Title>{product.name}</Title>
+              <Rating value={product.rating} />
+              <Price>${product.price}</Price>
+              <InStock>
+                Status:{' '}
+                {product.countInStock === 0 ? 'Out of Stock' : 'In Stock'}
+              </InStock>
+              {product.countInStock === 0 ? (
+                <LinkWrapper
+                  to='#'
+                  className='disabled'
+                  onClick={event => event.preventDefault()}
+                >
+                  Add To Cart
+                </LinkWrapper>
+              ) : (
+                <LinkWrapper to='/cart'>Add To Cart</LinkWrapper>
+              )}
 
-            <Heading>Product Description</Heading>
-            <Discription>{product.description}</Discription>
-          </Right>
-        </Details>
-      </ProductDetails>
+              <Heading>Product Description</Heading>
+              <Discription>{product.description}</Discription>
+            </Right>
+          </Details>
+        </ProductDetails>
+      )}
       <Footer />
     </>
   )
