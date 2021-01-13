@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import axios from 'axios'
 
 import Title from '../Title'
+import { listProducts } from '../../actions/productActions'
+import Message from '../Message'
+import CustomLoader from '../../components/CustomLoader'
 
 const Wrapper = styled.div`
   display: grid;
@@ -86,17 +89,15 @@ const PriceLabel = styled.span`
 const Price = styled.div``
 
 const Product = () => {
-  const [products, setProducts] = useState([])
+  const dispatch = useDispatch()
+
+  const productList = useSelector(state => state.productList)
+
+  const { loading, error, products } = productList
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const { data } = await axios.get(`/api/products`)
-
-      setProducts(data.data.products)
-    }
-
-    fetchProducts()
-  }, [])
+    dispatch(listProducts())
+  }, [dispatch])
 
   return (
     <section className='section'>
@@ -105,28 +106,34 @@ const Product = () => {
         subtitle='Select from the premium product brands and save plenty money'
       />
 
-      <Wrapper className='container'>
-        {products.map((item, index) => (
-          <ProductItem key={index}>
-            <Link to={`/products/${item._id}`}>
-              <ImgContainer>
-                <img src={item.image} alt={item.name} />
-                <IconWrapper>
-                  <i className='fas fa-shopping-cart'></i>
-                </IconWrapper>
-              </ImgContainer>
-            </Link>
-            <Bottom>
-              <ProductLink to={`/products/${item._id}`}>
-                {item.name}
-              </ProductLink>
-              <Price>
-                <PriceLabel>${item.price}</PriceLabel>
-              </Price>
-            </Bottom>
-          </ProductItem>
-        ))}
-      </Wrapper>
+      {loading ? (
+        <CustomLoader type='Oval' color=' #ff4545' />
+      ) : error ? (
+        <Message type='danger' message={error} title='' />
+      ) : (
+        <Wrapper className='container'>
+          {products.map((item, index) => (
+            <ProductItem key={index}>
+              <Link to={`/products/${item._id}`}>
+                <ImgContainer>
+                  <img src={item.image} alt={item.name} />
+                  <IconWrapper>
+                    <i className='fas fa-shopping-cart'></i>
+                  </IconWrapper>
+                </ImgContainer>
+              </Link>
+              <Bottom>
+                <ProductLink to={`/products/${item._id}`}>
+                  {item.name}
+                </ProductLink>
+                <Price>
+                  <PriceLabel>${item.price}</PriceLabel>
+                </Price>
+              </Bottom>
+            </ProductItem>
+          ))}
+        </Wrapper>
+      )}
     </section>
   )
 }
