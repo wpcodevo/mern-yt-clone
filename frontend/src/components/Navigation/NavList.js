@@ -3,6 +3,8 @@ import Styled from 'styled-components'
 
 import NavItem from './NavItem'
 import NavBarData from './NavData'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 const Label = Styled.label`
  color: var(--white);
@@ -54,7 +56,52 @@ display: none;
 }
 `
 
-const NavList = ({ menu, setMenu }) => {
+const Icon = styled.div`
+  span {
+    display: inline-block;
+    margin: 0.5rem 1rem 0 0;
+    position: relative;
+    cursor: pointer;
+
+    .count {
+      justify-content: center;
+      position: absolute;
+      top: 0rem;
+      right: -0.8rem;
+      background-color: var(--primary);
+      height: 2rem;
+      padding: 0.5rem;
+      color: var(--white);
+      font-weight: 700;
+      border-radius: 50%;
+    }
+  }
+`
+
+const LinkWrapper = styled(Link)`
+  display: inline-block;
+  margin: 0.5rem 1rem 0 0;
+  position: relative;
+
+  .count {
+    justify-content: center;
+    position: absolute;
+    top: 0rem;
+    right: -0.8rem;
+    background-color: var(--primary);
+    height: 2rem;
+    padding: 0.5rem;
+    color: var(--white);
+    font-weight: 700;
+    border-radius: 50%;
+  }
+`
+
+const NavList = ({ menu, setMenu, count }) => {
+  const cartItems = localStorage.getItem('cartItems')
+    ? JSON.parse(localStorage.getItem('cartItems'))
+    : []
+
   return (
     <Wrapper className={menu ? 'show' : ''}>
       <Top>
@@ -65,6 +112,17 @@ const NavList = ({ menu, setMenu }) => {
       {NavBarData.map((item, index) => (
         <NavItem item={item} key={index} />
       ))}
+      <Icon>
+        <LinkWrapper to='/cart'>
+          <img src='/images/shoppingBag.svg' alt='' />
+          <small className='count d-flex'>
+            {count ? count : cartItems.reduce((acc, item) => acc + item.qty, 0)}
+          </small>
+        </LinkWrapper>
+        <span>
+          <img src='/images/search.svg' alt='' />
+        </span>
+      </Icon>
     </Wrapper>
   )
 }

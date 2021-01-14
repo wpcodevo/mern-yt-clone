@@ -1,19 +1,39 @@
-import { store } from 'react-notifications-component'
+import React from 'react'
+import styled from 'styled-components'
 
-const Message = ({ title, message, type }) => {
-  return store.addNotification({
-    title,
-    message,
-    type,
-    insert: 'top',
-    container: 'top-right',
-    animationIn: ['animate__animated', 'animate__fadeIn'],
-    animationOut: ['animate__animated', 'animate__fadeOut'],
-    dismiss: {
-      duration: 5000,
-      onScreen: true,
-    },
-  })
+const Wrapper = styled.div`
+  margin: 10rem auto;
+
+  div {
+    padding: 2rem 0;
+    text-align: center;
+
+    &.warning {
+      background-color: #f8d7da;
+
+      span {
+        color: #aa5c63;
+      }
+    }
+
+    &.success {
+      background-color: #d1e7dd;
+
+      span {
+        color: #0f5132;
+      }
+    }
+  }
+`
+
+const Message = ({ message, type }) => {
+  return (
+    <Wrapper className='container'>
+      <div className={type}>
+        <span>{message}</span>
+      </div>
+    </Wrapper>
+  )
 }
 
 export default Message

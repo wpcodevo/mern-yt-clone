@@ -12,19 +12,7 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 3rem;
-  max-width: 130rem;
-  margin: 0 auto;
   padding: 0 1.6rem;
-
-  @media (max-width: 996px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 996px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 996px) {
-    grid-template-columns: 1fr;
-  } ;
 `
 
 const ImgContainer = styled.div`
@@ -111,7 +99,7 @@ const Product = () => {
       ) : error ? (
         <Message type='danger' message={error} title='' />
       ) : (
-        <Wrapper className='container'>
+        <Wrapper>
           {products.map((item, index) => (
             <ProductItem key={index}>
               <Link to={`/products/${item._id}`}>

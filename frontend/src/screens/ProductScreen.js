@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
@@ -9,7 +9,7 @@ import Rating from '../components/Rating'
 
 import { listProductDetails } from '../actions/productActions'
 import CustomLoader from '../components/CustomLoader'
-import Message from '../components/Message'
+import Alert from '../components/Alert'
 
 const ProductDetails = styled.section`
   margin-top: 5rem;
@@ -19,11 +19,21 @@ const Details = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 7rem;
+
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
 `
 
 const Left = styled.div`
   display: flex;
   flex-direction: column;
+
+  @media (max-width: 650px) {
+    width: 100%;
+    height: 45rem;
+  }
 `
 
 const Main = styled.div`
@@ -56,6 +66,11 @@ const Thumbnail = styled.div`
     height: 100%;
     object-fit: contain;
   }
+
+  @media (max-width: 650px) {
+    width: 6rem;
+    height: 6rem;
+  }
 `
 const CatLabel = styled.span`
   display: inline-block;
@@ -68,6 +83,41 @@ const Right = styled.div`
     position: relative;
     z-index: 1;
   }
+
+  @media (max-width: 650px) {
+    margin-top: 10rem;
+  }
+`
+
+export const Form = styled.form`
+  margin-bottom: 2rem;
+
+  div {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+
+    span {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-60%);
+      font-size: 1.3rem;
+      z-index: 0;
+      pointer-events: none;
+    }
+  }
+`
+
+export const Select = styled.select`
+  font-family: 'Poppins', sans-serif;
+  width: 6rem;
+  padding: 0.3rem;
+  border: 1px solid var(--grey1);
+  appearance: none;
+  outline: none;
+  font-weight: 600;
+  cursor: pointer;
 `
 
 const Title = styled.h1`
@@ -112,7 +162,9 @@ const Discription = styled.p`
   color: var(--grey1);
 `
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ match, histroy }) => {
+  const [qty, setQty] = useState(1)
+
   const dispatch = useDispatch()
   const ProductDetail = useSelector(state => state.productDetails)
 
@@ -128,7 +180,7 @@ const ProductScreen = ({ match }) => {
       {loading ? (
         <CustomLoader type='Oval' />
       ) : error ? (
-        <Message title='' message={error} type='danger' />
+        <Alert title='' message={error} type='danger' />
       ) : (
         <ProductDetails className='section'>
           <Details className='container'>
@@ -157,6 +209,22 @@ const ProductScreen = ({ match }) => {
               <Title>{product.name}</Title>
               <Rating value={product.rating} />
               <Price>${product.price}</Price>
+              {product.countInStock > 0 && (
+                <Form>
+                  <div>
+                    <Select value={qty} onChange={e => setQty(e.target.value)}>
+                      {[...Array(product.countInStock).keys()].map(x => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </Select>
+                    <span>
+                      <i className='fas fa-chevron-down'></i>
+                    </span>
+                  </div>
+                </Form>
+              )}
               <InStock>
                 Status:{' '}
                 {product.countInStock === 0 ? 'Out of Stock' : 'In Stock'}
@@ -170,7 +238,9 @@ const ProductScreen = ({ match }) => {
                   Add To Cart
                 </LinkWrapper>
               ) : (
-                <LinkWrapper to='/cart'>Add To Cart</LinkWrapper>
+                <LinkWrapper to={`/cart/${match.params.id}?qty=${qty}`}>
+                  Add To Cart
+                </LinkWrapper>
               )}
 
               <Heading>Product Description</Heading>

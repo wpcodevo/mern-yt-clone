@@ -14,7 +14,7 @@ function App() {
       <ReactNotification />
       <Route exact path='/' component={HomeScreen} />
       <Route path='/products/:id' component={ProductScreen} />
-      <Route path='/cart' component={Cart} />
+      <Route path='/cart/:id?' component={Cart} />
     </>
   )
 }

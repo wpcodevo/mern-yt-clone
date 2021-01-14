@@ -50,7 +50,7 @@ font-size: 2rem;
 }
 `
 
-const Navigation = () => {
+const Navigation = ({ count }) => {
   const [menu, setMenu] = useState(false)
 
   const showMenu = () => setMenu(true)
@@ -63,7 +63,7 @@ const Navigation = () => {
             BLOGSHOP
           </Link>
         </LogoWrapper>
-        <NavList menu={menu} setMenu={setMenu} />
+        <NavList menu={menu} setMenu={setMenu} count={count} />
         <Label onClick={showMenu}>
           <i className='fas fa-bars'></i>
         </Label>
