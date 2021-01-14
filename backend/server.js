@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import colors from 'colors'
 import connectDB from './config/db.js'
 import productRouter from './routes/productRoutes.js'
+import userRouter from './routes/userRoutes.js'
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 process.on('uncaughtException', err => {
@@ -14,10 +15,13 @@ dotenv.config()
 
 const app = express()
 
+app.use(express.json())
+
 // Database
 connectDB()
 
 app.use('/api/products', productRouter)
+app.use('/api/users', userRouter)
 
 const PORT = process.env.PORT || 5100
 
@@ -37,4 +41,5 @@ process.on('unhandledRejection', () => {
 })
 
 app.use(notFound)
+
 app.use(errorHandler)
