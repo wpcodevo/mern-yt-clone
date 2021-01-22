@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import styled from 'styled-components'
 import Navigation from '../components/Navigation'
+import Footer from '../components/Footer'
 import { Form, Select } from './ProductScreen'
 import Message from '../components/Message'
+import CustomLoader from '../components/CustomLoader'
 
 const Cart = styled.div`
   margin: 10rem auto;
@@ -67,8 +69,9 @@ const TotalLink = styled.button`
   display: inline-block;
   background-color: var(--primary);
   color: var(--white);
-  padding: 1rem 2rem;
-  font-weight: 700;
+  padding: 1.3rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 500;
   border-radius: 3rem;
   outline: none;
   border: none;
@@ -76,6 +79,7 @@ const TotalLink = styled.button`
 `
 
 const CartScreen = ({ match, location, history }) => {
+  const [loading, setLoading] = useState(true)
   const productId = match.params.id
   const qty = location.search ? Number(location.search.split('=')[1]) : 1
 
@@ -90,6 +94,8 @@ const CartScreen = ({ match, location, history }) => {
     if (productId) {
       dispatch(addToCart(productId, qty))
     }
+
+    setTimeout(() => setLoading(false), 500)
   }, [dispatch, productId, qty])
 
   const removeFromCartHandler = id => {
@@ -105,6 +111,8 @@ const CartScreen = ({ match, location, history }) => {
       <Navigation count={cartItems.reduce((acc, item) => acc + item.qty, 0)} />
       {cartItems.length === 0 ? (
         <Message type='warning' message='Your Cart is Empty' />
+      ) : loading ? (
+        <CustomLoader type='Oval' />
       ) : (
         <Cart className='container'>
           <Table>
@@ -204,6 +212,8 @@ const CartScreen = ({ match, location, history }) => {
           </TotalPrice>
         </Cart>
       )}
+
+      <Footer />
     </>
   )
 }

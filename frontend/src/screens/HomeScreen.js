@@ -9,7 +9,7 @@ const Grid = styled.div`
   display: grid;
   grid-template-areas: 'header' 'main' 'footer';
   grid-template-columns: 1fr;
-  grid-template-rows: 6.5rem 1fr 10rem;
+  grid-template-rows: 6.5rem 1fr auto;
   height: 100%;
 `
 
