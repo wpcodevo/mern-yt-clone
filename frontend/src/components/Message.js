@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  margin: 10rem auto;
+  margin: 15rem auto 15rem auto;
 
   div {
     padding: 2rem 0;

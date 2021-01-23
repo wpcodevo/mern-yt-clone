@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import Title from '../Title'
 import { listProducts } from '../../actions/productActions'
-import Message from '../Message'
+import Alert from '../Alert'
 import CustomLoader from '../../components/CustomLoader'
 
 const Wrapper = styled.div`
@@ -13,6 +13,7 @@ const Wrapper = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
   gap: 3rem;
   padding: 0 1.6rem;
+  margin-bottom: 5rem;
 `
 
 const ImgContainer = styled.div`
@@ -97,7 +98,7 @@ const Product = () => {
       {loading ? (
         <CustomLoader type='Oval' />
       ) : error ? (
-        <Message type='danger' message={error} title='' />
+        <Alert type='danger' message={error} title='' />
       ) : (
         <Wrapper>
           {products.map((item, index) => (

@@ -8,7 +8,6 @@ const Wrapper = styled.div`
   padding: 6rem 1rem;
   line-height: 3rem;
   background-color: var(--black);
-  height: 100%;
 
   .payment-methods {
     margin-top: 2rem;

@@ -1,6 +1,6 @@
 import { store } from 'react-notifications-component'
 
-const Message = ({ title, message, type }) => {
+const Alert = ({ title, message, type }) => {
   return store.addNotification({
     title,
     message,
@@ -16,4 +16,4 @@ const Message = ({ title, message, type }) => {
   })
 }
 
-export default Message
+export default Alert

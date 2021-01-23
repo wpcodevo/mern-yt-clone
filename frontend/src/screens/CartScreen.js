@@ -88,8 +88,6 @@ const CartScreen = ({ match, location, history }) => {
   const cart = useSelector(state => state.cart)
   const { cartItems } = cart
 
-  console.log(cartItems)
-
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty))
@@ -100,6 +98,7 @@ const CartScreen = ({ match, location, history }) => {
 
   const removeFromCartHandler = id => {
     dispatch(removeFromCart(id))
+    history.push('/cart')
   }
 
   const checkOutHandler = () => {
