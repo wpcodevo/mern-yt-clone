@@ -4,6 +4,11 @@
   --black: #222;
   --grey1: #3a3b3c;
   --grey2: #828282;
+  --green1: #45c854;
+  --green2: #e5f9e7;
+  --pink: #f53f85;
+  --brown1: #573a08;
+  --brown2: #fffaf3;
 }
 
 *,
@@ -19,7 +24,8 @@ html {
   font-size: 62.5%;
 }
 
-body {
+body,
+input {
   font-family: 'Open Sans', sans-serif;
   font-size: 1.6rem;
   background-color: var(--white);

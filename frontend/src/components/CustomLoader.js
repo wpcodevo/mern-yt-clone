@@ -8,13 +8,19 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  margin: 30rem 0;
+  margin: 20rem 0;
 `
 
-const CustomLoader = ({ type, color }) => {
+const CustomLoader = ({ type, color, width, height }) => {
   return (
     <Wrapper>
-      <Loader type={type} color={color} height={50} width={50} timeout={3000} />
+      <Loader
+        type={type}
+        color={color}
+        height={height}
+        width={width}
+        timeout={3000}
+      />
     </Wrapper>
   )
 }

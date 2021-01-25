@@ -211,7 +211,6 @@ const CartScreen = ({ match, location, history }) => {
           </TotalPrice>
         </Cart>
       )}
-
       <Footer />
     </>
   )

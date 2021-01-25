@@ -15,11 +15,13 @@ dotenv.config()
 
 const app = express()
 
+// MiddleWares
 app.use(express.json())
 
 // Database
 connectDB()
 
+// Routes
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
 

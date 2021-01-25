@@ -40,7 +40,7 @@ export const authUser = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email })
 
   if (user && (await user.matchPassword(password))) {
-    return res.status(200).json({
+    res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -58,7 +58,7 @@ export const authUser = catchAsync(async (req, res, next) => {
 export const getUserProfile = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id)
   if (user) {
-    return res.json({
+    res.json({
       _id: user._id,
       name: user.name,
       email: user.email,

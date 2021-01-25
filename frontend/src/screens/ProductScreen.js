@@ -164,7 +164,6 @@ const Discription = styled.p`
 
 const ProductScreen = ({ match, histroy }) => {
   const [qty, setQty] = useState(1)
-  const [notify, setNotify] = useState(false)
 
   const dispatch = useDispatch()
   const ProductDetail = useSelector(state => state.productDetails)
@@ -179,7 +178,7 @@ const ProductScreen = ({ match, histroy }) => {
     <>
       <Navigation />
       {loading ? (
-        <CustomLoader type='Oval' />
+        <CustomLoader type='Oval' width={50} height={50} />
       ) : error ? (
         <Alert title='' message={error} type='danger' />
       ) : (
