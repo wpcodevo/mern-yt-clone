@@ -19,7 +19,7 @@ export const registerUser = catchAsync(async (req, res, next) => {
   })
 
   if (user) {
-    res.status(201).json({
+    return res.status(201).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -40,7 +40,7 @@ export const authUser = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email })
 
   if (user && (await user.matchPassword(password))) {
-    res.status(200).json({
+    return res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
@@ -58,16 +58,16 @@ export const authUser = catchAsync(async (req, res, next) => {
 export const getUserProfile = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user._id)
   if (user) {
-    res.json({
+    return res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
     })
-  } else {
-    res.status(404)
-    throw new Error('User not Found')
   }
+
+  res.status(404)
+  throw new Error('User not Found')
 
   next()
 })

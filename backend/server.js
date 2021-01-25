@@ -4,7 +4,7 @@ import colors from 'colors'
 import connectDB from './config/db.js'
 import productRouter from './routes/productRoutes.js'
 import userRouter from './routes/userRoutes.js'
-// import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
+import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 process.on('uncaughtException', err => {
   console.log(err.name, err.message)
@@ -23,8 +23,8 @@ connectDB()
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
 
-// app.use(notFound)
-// app.use(errorHandler)
+app.use(notFound)
+app.use(errorHandler)
 
 const PORT = process.env.PORT || 5100
 
