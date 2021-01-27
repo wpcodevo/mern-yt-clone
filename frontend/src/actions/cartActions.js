@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { toast } from 'react-toastify'
+
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 
 export const addToCart = (id, qty) => async (dispatch, getState) => {
@@ -16,6 +18,10 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     },
   })
 
+  if (data) {
+    toast.success('Added To Cart')
+  }
+
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }
 
@@ -24,6 +30,8 @@ export const removeFromCart = id => async (dispatch, getState) => {
     type: CART_REMOVE_ITEM,
     payload: id,
   })
+
+  toast.error('Removed from Cart')
 
   localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
 }

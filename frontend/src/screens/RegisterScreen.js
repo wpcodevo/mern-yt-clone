@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import Footer from '../components/Footer'
 import Navigation from '../components/Navigation'
-import { useDispatch, useSelector } from 'react-redux'
-import Alert from '../components/Alert'
 import Container from '../components/FormContainer'
 import { Link } from 'react-router-dom'
 

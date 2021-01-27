@@ -111,7 +111,7 @@ const CartScreen = ({ match, location, history }) => {
       {cartItems.length === 0 ? (
         <Message type='warning' message='Your Cart is Empty' />
       ) : loading ? (
-        <CustomLoader type='Oval' />
+        <CustomLoader type='Oval' width={40} height={40} />
       ) : (
         <Cart className='container'>
           <Table>

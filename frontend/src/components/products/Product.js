@@ -6,7 +6,10 @@ import styled from 'styled-components'
 import Title from '../Title'
 import { listProducts } from '../../actions/productActions'
 import Alert from '../Alert'
+import Message from '../Message'
 import CustomLoader from '../../components/CustomLoader'
+import { addToCart } from '../../actions/cartActions'
+import { toast } from 'react-toastify'
 
 const Wrapper = styled.div`
   display: grid;
@@ -40,6 +43,11 @@ const IconWrapper = styled.div`
   :hover {
     background-color: var(--primary);
     color: var(--white);
+  }
+
+  &.disabled {
+    pointer-event: none;
+    cursor: default;
   }
 `
 
@@ -80,37 +88,58 @@ const Price = styled.div``
 const Product = () => {
   const dispatch = useDispatch()
 
-  const productList = useSelector(state => state.productList)
+  const qty = 1
 
+  const productList = useSelector(state => state.productList)
   const { loading, error, products } = productList
 
   useEffect(() => {
     dispatch(listProducts())
   }, [dispatch])
 
+  const addToCartHandler = (id, qty) => {
+    dispatch(addToCart(id, qty))
+  }
+
+  const outOfStockHandler = () => {
+    toast.error('Out of Stock')
+  }
+
   return (
     <section className='section'>
       <Title
         title='New Products'
         subtitle='Select from the premium product brands and save plenty money'
-      />
-
+      />{' '}
       {loading ? (
         <CustomLoader type='Oval' />
       ) : error ? (
-        <Alert type='danger' message={error} title='' />
+        <>
+          {' '}
+          <Alert type='danger' message={error} title='' />{' '}
+          <Message type='warning' message={error} />{' '}
+        </>
       ) : (
         <Wrapper>
           {products.map((item, index) => (
             <ProductItem key={index}>
-              <Link to={`/products/${item._id}`}>
-                <ImgContainer>
+              <ImgContainer>
+                <Link to={`/products/${item._id}`}>
                   <img src={item.image} alt={item.name} />
-                  <IconWrapper>
+                </Link>
+                {item.countInStock === 0 ? (
+                  <IconWrapper
+                    className='disabled'
+                    onClick={() => outOfStockHandler()}
+                  >
                     <i className='fas fa-shopping-cart'></i>
                   </IconWrapper>
-                </ImgContainer>
-              </Link>
+                ) : (
+                  <IconWrapper onClick={() => addToCartHandler(item._id, qty)}>
+                    <i className='fas fa-shopping-cart'></i>
+                  </IconWrapper>
+                )}
+              </ImgContainer>
               <Bottom>
                 <ProductLink to={`/products/${item._id}`}>
                   {item.name}

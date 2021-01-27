@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import { toast } from 'react-toastify'
 import Footer from '../components/Footer'
 import Navigation from '../components/Navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import Alert from '../components/Alert'
 import Container from '../components/FormContainer'
 import { Link } from 'react-router-dom'
 import { login } from '../actions/userActions'
@@ -104,11 +104,15 @@ const LoginScreen = ({ history, location }) => {
 
   const dispatch = useDispatch()
   const userLogin = useSelector(state => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const { loading, userInfo } = userLogin
 
   const submitHandler = e => {
     e.preventDefault()
-    dispatch(login(email, password))
+    if (email && password) {
+      dispatch(login(email, password))
+    } else {
+      toast.error('Please fill all fields!')
+    }
   }
 
   useEffect(() => {
@@ -159,7 +163,7 @@ const LoginScreen = ({ history, location }) => {
             </Form>
           )}
 
-          <Bottom type='submit'>
+          <Bottom>
             <i className='fas fa-question'></i>
             Not an account?{' '}
             <Link
@@ -171,7 +175,6 @@ const LoginScreen = ({ history, location }) => {
           </Bottom>
         </Container>
       </Wrapper>
-      {error && <Alert type='warning' message={error} />}
       <Footer />
     </>
   )

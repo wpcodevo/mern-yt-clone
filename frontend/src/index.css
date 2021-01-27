@@ -74,4 +74,5 @@ li {
 
 .section {
   padding: 10rem 0 5rem 0;
+  overflow: hidden;
 }
