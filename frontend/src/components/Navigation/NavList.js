@@ -1,18 +1,17 @@
 import React, { useState } from 'react'
-import Styled from 'styled-components'
-
-import NavItem from './NavItem'
-import NavBarData from './NavData'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import NavItem from './NavItem'
+import NavBarData from './NavData'
+import { logout } from '../../actions/userActions'
 
-const Label = Styled.label`
- color: var(--white);
+const CloseIcon = styled.label`
+  color: var(--white);
   font-size: 2rem;
   cursor: pointer;
-  display: none;
 
-  @media (max-width: 996px){
+  @media (max-width: 996px) {
     display: block;
     position: absolute;
     top: 1.5rem;
@@ -21,11 +20,11 @@ const Label = Styled.label`
   }
 `
 
-const Wrapper = Styled.ul`
-display: inline-flex;
+const Wrapper = styled.ul`
+  display: inline-flex;
 
-@media (max-width: 996px){
-  position: fixed;
+  @media (max-width: 996px) {
+    position: fixed;
     top: 0;
     left: -100%;
     height: 100%;
@@ -37,27 +36,30 @@ display: inline-flex;
     line-height: 5rem;
     box-shadow: 0 1.5rem 1.5rem rgba(0, 0, 0, 0.1);
     transition: all 300ms linear;
-    z-index: 999
-}
+    z-index: 999;
+  }
 
- &.show{
-      left: 0;
-    }
+  &.show {
+    left: 0;
+  }
 `
 
-const Top = Styled.div`
-display: none;
+const Top = styled.div`
+  display: none;
 
-@media (max-width: 996px){
-  position: relative;
+  @media (max-width: 996px) {
+    position: relative;
     display: block;
     background-color: var(--primary);
     width: 100%;
     height: 8rem;
-}
+  }
 `
 
 const Icon = styled.div`
+  display: flex;
+  align-items: center;
+
   @media (max-width: 996px) {
     display: none;
   }
@@ -176,23 +178,114 @@ const Form = styled.form`
   }
 `
 
+const DropMenu = styled.ul`
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.1);
+  width: 20rem;
+  top: 8.5rem;
+  line-height: 4.5rem;
+  position: absolute;
+  background-color: var(--white);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 300ms ease;
+`
+
+const DropItem = styled.li`
+  @media (max-width: 996px) {
+    margin: 0;
+  }
+`
+
+const DropLink = styled(Link)`
+  display: block;
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 0 0 0 1.5rem;
+  border-radius: 0;
+  color: var(--grey2);
+
+  :hover {
+    color: var(--primary);
+  }
+
+  @media (max-width: 996px) {
+    color: var(--grey2);
+    font-size: 1.5rem;
+  }
+`
+
+const NavItemWrapper = styled.li`
+  margin-right: 0.7rem;
+
+  img {
+    cursor: pointer;
+  }
+
+  :hover ${DropMenu} {
+    opacity: 1;
+    visibility: visible;
+    top: 6.5rem;
+  }
+
+  @media (max-width: 996px) {
+    margin: 1.5rem 1rem;
+  }
+`
+const OtherLink = styled(Link)`
+  display: block;
+  font-size: 1.8rem;
+  padding: 0 3rem;
+  color: var(--black);
+  cursor: pointer;
+  transition: all 300ms ease;
+
+  :hover {
+    color: var(--primary);
+  }
+
+  @media (min-width: 996px) {
+    display: none;
+  }
+`
+
 const NavList = ({ menu, setMenu, count }) => {
   const [search, setSearch] = useState(false)
+
+  const dispatch = useDispatch()
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
 
   const cartItems = localStorage.getItem('cartItems')
     ? JSON.parse(localStorage.getItem('cartItems'))
     : []
 
+  const logoutHandler = () => {
+    dispatch(logout())
+  }
+
   return (
     <Wrapper className={menu ? 'show' : ''}>
       <Top>
-        <Label onClick={() => setMenu(false)}>
+        <CloseIcon onClick={() => setMenu(false)}>
           <i className='fas fa-times'></i>
-        </Label>
+        </CloseIcon>
       </Top>
       {NavBarData.map((item, index) => (
         <NavItem item={item} key={index} />
       ))}
+
+      {userInfo ? (
+        <OtherLink to='#' onClick={logoutHandler}>
+          <img src='/images/bx-user.svg' alt='' />
+          Logout
+        </OtherLink>
+      ) : (
+        <OtherLink to='/login'>
+          <img src='/images/bx-user.svg' alt='' />
+          Login
+        </OtherLink>
+      )}
+      <OtherLink to='/profile'>Profile</OtherLink>
       <Icon>
         <LinkWrapper to='/cart'>
           <img src='/images/shoppingBag.svg' alt='' />
@@ -201,9 +294,26 @@ const NavList = ({ menu, setMenu, count }) => {
           </small>
         </LinkWrapper>
 
-        <LinkWrapper to='/login'>
-          <img src='/images/bx-user.svg' alt='' />
-        </LinkWrapper>
+        {userInfo ? (
+          <>
+            <NavItemWrapper>
+              <img src='/images/bx-user.svg' alt='' />
+
+              <DropMenu>
+                <DropItem>
+                  <DropLink to='/profile'>Profile</DropLink>
+                </DropItem>
+                <DropItem onClick={logoutHandler}>
+                  <DropLink to='#'>Logout</DropLink>
+                </DropItem>
+              </DropMenu>
+            </NavItemWrapper>
+          </>
+        ) : (
+          <LinkWrapper to='/login'>
+            <img src='/images/bx-user.svg' alt='' />
+          </LinkWrapper>
+        )}
 
         <span onClick={() => setSearch(true)}>
           <img src='/images/search.svg' alt='' />

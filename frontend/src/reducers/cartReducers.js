@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify'
 import { CART_ADD_ITEM, CART_REMOVE_ITEM } from '../constants/cartConstants'
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
@@ -15,6 +16,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           ),
         }
       } else {
+        toast.success('Added To Cart')
         return {
           ...state,
           cartItems: [...state.cartItems, item],
