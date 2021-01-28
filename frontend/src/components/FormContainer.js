@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Container = styled.div`
-  margin: 15rem auto 15rem auto;
+  margin: 5rem auto 10rem auto;
   width: 100%;
   height: 100%;
   background-color: var(--white);

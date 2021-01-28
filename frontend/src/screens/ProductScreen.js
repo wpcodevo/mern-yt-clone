@@ -3,10 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
 import Rating from '../components/Rating'
-
 import { listProductDetails } from '../actions/productActions'
 import CustomLoader from '../components/CustomLoader'
 import Alert from '../components/Alert'
@@ -176,7 +173,6 @@ const ProductScreen = ({ match, histroy }) => {
 
   return (
     <>
-      <Navigation />
       {loading ? (
         <CustomLoader type='Oval' width={50} height={50} />
       ) : error ? (
@@ -249,7 +245,6 @@ const ProductScreen = ({ match, histroy }) => {
           </Details>
         </ProductDetails>
       )}
-      <Footer />
     </>
   )
 }

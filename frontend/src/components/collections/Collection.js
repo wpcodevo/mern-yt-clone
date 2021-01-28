@@ -10,7 +10,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 3rem;
-  margin-top: 50rem;
 
   @media (max-width: 996px) {
     grid-template-columns: repeat(2, 1fr);

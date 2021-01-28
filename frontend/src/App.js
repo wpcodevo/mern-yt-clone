@@ -11,16 +11,25 @@ import Cart from './screens/CartScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import { ToastContainer } from 'react-toastify'
+import ProfileScreen from './screens/ProfileScreen'
+import ShippingScreen from './screens/ShippingScreen'
+import Footer from './components/Footer'
+import Navigation from './components/Navigation'
 
 function App() {
   return (
     <>
+      <Navigation />
       <ReactNotification />
       <Route path='/products/:id' component={ProductScreen} />
       <Route path='/cart/:id?' component={Cart} />
+      <Route path='/shipping' component={ShippingScreen} />
       <Route path='/login' component={LoginScreen} />
       <Route path='/register' component={RegisterScreen} />
+      <Route path='/profile' component={ProfileScreen} />
       <Route exact path='/' component={HomeScreen} />
+
+      <Footer />
       <ToastContainer autoClose={2500} />
     </>
   )

@@ -263,6 +263,11 @@ const NavList = ({ menu, setMenu, count }) => {
     dispatch(logout())
   }
 
+  const onClick = () => {
+    logoutHandler()
+    setMenu(false)
+  }
+
   return (
     <Wrapper className={menu ? 'show' : ''}>
       <Top>
@@ -271,21 +276,25 @@ const NavList = ({ menu, setMenu, count }) => {
         </CloseIcon>
       </Top>
       {NavBarData.map((item, index) => (
-        <NavItem item={item} key={index} />
+        <NavItem item={item} key={index} setMenu={setMenu} />
       ))}
 
       {userInfo ? (
-        <OtherLink to='#' onClick={logoutHandler}>
+        <OtherLink to='#' onClick={onClick}>
           <img src='/images/bx-user.svg' alt='' />
           Logout
         </OtherLink>
       ) : (
-        <OtherLink to='/login'>
+        <OtherLink to='/login' onClick={() => setMenu(false)}>
           <img src='/images/bx-user.svg' alt='' />
           Login
         </OtherLink>
       )}
-      <OtherLink to='/profile'>Profile</OtherLink>
+      {userInfo && (
+        <OtherLink to='/profile' onClick={() => setMenu(false)}>
+          Profile
+        </OtherLink>
+      )}
       <Icon>
         <LinkWrapper to='/cart'>
           <img src='/images/shoppingBag.svg' alt='' />

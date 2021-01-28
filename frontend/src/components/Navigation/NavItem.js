@@ -217,10 +217,14 @@ const Label = styled.label`
   }
 `
 
-const NavItem = ({ item }) => {
+const NavItem = ({ item, setMenu }) => {
   return (
     <NavItemWrapper>
-      <NavLink to={item.path} className={item.class}>
+      <NavLink
+        to={item.path}
+        className={item.class}
+        onClick={() => setMenu(false)}
+      >
         {item.title}
         <span>{item.subMenu && item.icon}</span>
         <span>{item.megaMenu && item.icon}</span>
@@ -238,7 +242,7 @@ const NavItem = ({ item }) => {
           <DropMenu>
             {item.subMenu.map((item, index) => {
               return (
-                <DropItem key={index}>
+                <DropItem key={index} onClick={() => setMenu(false)}>
                   <DropLink to={item.path}>{item.title}</DropLink>
                 </DropItem>
               )
@@ -268,7 +272,11 @@ const NavItem = ({ item }) => {
                     <MegaList>
                       <MegaItem>
                         {item.subItem.map((item, index) => (
-                          <MegaLink to={item.path} key={index}>
+                          <MegaLink
+                            to={item.path}
+                            key={index}
+                            onClick={() => setMenu(false)}
+                          >
                             {item.title}
                           </MegaLink>
                         ))}

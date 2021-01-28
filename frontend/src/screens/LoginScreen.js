@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import { toast } from 'react-toastify'
-import Footer from '../components/Footer'
-import Navigation from '../components/Navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import Container from '../components/FormContainer'
+import FormContainer from '../components/FormContainer'
 import { Link } from 'react-router-dom'
 import { login } from '../actions/userActions'
 import CustomLoader from '../components/CustomLoader'
@@ -17,7 +15,7 @@ const Wrapper = styled.div`
   background: url('/images/login-bg.jpg') center/cover no-repeat fixed;
 `
 
-const Top = styled.div`
+export const Top = styled.div`
   display: flex;
   align-items: center;
   background-color: var(--green2);
@@ -42,12 +40,12 @@ const Top = styled.div`
     font-size: 1.4rem;
   }
 `
-const Form = styled.form`
+export const Form = styled.form`
   padding: 2.5rem;
   background-color: var(--white);
 `
 
-const FormControl = styled.div`
+export const FormControl = styled.div`
   margin-bottom: 2rem;
 
   label {
@@ -67,7 +65,7 @@ const FormControl = styled.div`
   }
 `
 
-const Button = styled.button`
+export const Button = styled.button`
   display: block;
   width: 100%;
   padding: 1.5rem 0;
@@ -81,7 +79,7 @@ const Button = styled.button`
   cursor: pointer;
 `
 
-const Bottom = styled.div`
+export const Bottom = styled.div`
   color: var(--brown1);
   padding: 2.5rem;
   border-radius: 0 0 0.5rem 0.5rem;
@@ -123,9 +121,8 @@ const LoginScreen = ({ history, location }) => {
 
   return (
     <>
-      <Navigation />
       <Wrapper>
-        <Container>
+        <FormContainer>
           <Top>
             <i className='fas fa-key'></i>
             <div>
@@ -173,9 +170,8 @@ const LoginScreen = ({ history, location }) => {
             </Link>{' '}
             instead.
           </Bottom>
-        </Container>
+        </FormContainer>
       </Wrapper>
-      <Footer />
     </>
   )
 }

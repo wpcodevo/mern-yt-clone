@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import styled from 'styled-components'
-import Navigation from '../components/Navigation'
-import Footer from '../components/Footer'
 import { Form, Select } from './ProductScreen'
 import Message from '../components/Message'
 import CustomLoader from '../components/CustomLoader'
@@ -32,6 +30,10 @@ const Td = styled.td`
     width: 8rem;
     height: 8rem;
     margin-right: 1rem;
+  }
+
+  &.total {
+    font-weight: 700;
   }
 `
 
@@ -107,7 +109,6 @@ const CartScreen = ({ match, location, history }) => {
 
   return (
     <>
-      <Navigation count={cartItems.reduce((acc, item) => acc + item.qty, 0)} />
       {cartItems.length === 0 ? (
         <Message type='warning' message='Your Cart is Empty' />
       ) : loading ? (
@@ -193,11 +194,16 @@ const CartScreen = ({ match, location, history }) => {
                 </tr>
                 <tr>
                   <Td>Tax</Td>
-                  <Td>$50</Td>
+                  <Td>free shipping</Td>
                 </tr>
                 <tr>
                   <Td>Total</Td>
-                  <Td>$250</Td>
+                  <Td className='total'>
+                    $
+                    {cartItems
+                      .reduce((acc, item) => acc + item.qty * item.price, 0)
+                      .toFixed(2)}
+                  </Td>
                 </tr>
               </tbody>
             </TotalTable>
@@ -211,7 +217,6 @@ const CartScreen = ({ match, location, history }) => {
           </TotalPrice>
         </Cart>
       )}
-      <Footer />
     </>
   )
 }

@@ -15,10 +15,10 @@ const Nav = styled.nav`
   height: 6.5rem;
   line-height: 6.5rem;
   grid-area: header;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
   &.fix-nav {
     width: 100%;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     z-index: 999;
   }
 `
