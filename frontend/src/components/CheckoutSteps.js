@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const Wrapper = styled.div`
   display: flex;
-  align-items: center;
+  justify-content: center;
   margin: 15rem 0 5rem 0;
   padding: 2rem 5rem;
   background-color: var(--white);
@@ -25,6 +25,15 @@ const NavLink = styled(Link)`
   font-size: 2rem;
   color: #ccc;
   transition: all 500ms ease-in;
+
+  @media (max-width: 768px) {
+    font-size: 1.6rem;
+    padding: 1rem 1rem 1rem 0;
+  }
+
+  @media (max-width: 567px) {
+    font-size: 1.4rem;
+  }
 
   &.color {
     color: var(--green1);
@@ -74,7 +83,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
         </NavItem>
       ) : (
         <NavItem>
-          <NavLink to='/payment' className='disabled' disaled>
+          <NavLink to='/payment' className='disabled' disabled>
             Payment
           </NavLink>
         </NavItem>
@@ -88,7 +97,7 @@ const CheckoutSteps = ({ step1, step2, step3, step4 }) => {
         </NavItem>
       ) : (
         <NavItem>
-          <NavLink className='disabled' to='/placeorder' disaled>
+          <NavLink className='disabled' to='/placeorder' disabled>
             Place Order
           </NavLink>
         </NavItem>

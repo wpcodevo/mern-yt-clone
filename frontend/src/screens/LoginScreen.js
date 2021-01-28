@@ -43,6 +43,10 @@ export const Top = styled.div`
 export const Form = styled.form`
   padding: 2.5rem;
   background-color: var(--white);
+
+  &.color {
+    background-color: #f7f8fb;
+  }
 `
 
 export const FormControl = styled.div`

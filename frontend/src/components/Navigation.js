@@ -19,7 +19,6 @@ const Nav = styled.nav`
 
   &.fix-nav {
     width: 100%;
-    z-index: 999;
   }
 `
 

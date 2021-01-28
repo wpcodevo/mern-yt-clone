@@ -194,7 +194,7 @@ const CartScreen = ({ match, location, history }) => {
                 </tr>
                 <tr>
                   <Td>Tax</Td>
-                  <Td>free shipping</Td>
+                  <Td></Td>
                 </tr>
                 <tr>
                   <Td>Total</Td>
