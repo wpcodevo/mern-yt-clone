@@ -8,13 +8,13 @@ import { logout } from '../../actions/userActions'
 
 const CloseIcon = styled.label`
   color: var(--white);
-  font-size: 2rem;
+  font-size: 1.5rem;
   cursor: pointer;
 
   @media (max-width: 996px) {
     display: block;
     position: absolute;
-    top: 1.5rem;
+    top: 0rem;
     right: 2.5rem;
     color: var(--white);
   }
@@ -29,7 +29,7 @@ const Wrapper = styled.ul`
     left: -100%;
     height: 100%;
     width: 100%;
-    max-width: 35rem;
+    max-width: 30rem;
     background-color: var(--white);
     display: block;
     overflow-y: auto;
@@ -52,7 +52,7 @@ const Top = styled.div`
     display: block;
     background-color: var(--primary);
     width: 100%;
-    height: 8rem;
+    height: 5rem;
   }
 `
 
