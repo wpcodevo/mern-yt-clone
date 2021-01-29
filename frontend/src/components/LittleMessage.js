@@ -2,8 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 const Wrapper = styled.div`
-  margin: 15rem 0 15rem 0;
-
   div {
     padding: 2rem 0;
     text-align: center;
@@ -26,7 +24,7 @@ const Wrapper = styled.div`
   }
 `
 
-const Message = ({ message, type }) => {
+const LittleMessage = ({ message, type }) => {
   return (
     <Wrapper className='container'>
       <div className={type}>
@@ -36,4 +34,4 @@ const Message = ({ message, type }) => {
   )
 }
 
-export default Message
+export default LittleMessage

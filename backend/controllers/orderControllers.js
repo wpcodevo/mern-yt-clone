@@ -31,3 +31,17 @@ export const addOrderItems = catchAsync(async (req, res, next) => {
     res.status(201).json(order)
   }
 })
+
+export const getOrderById = catchAsync(async (req, res, next) => {
+  const order = await Order.findById(req.params.id).populate(
+    'user',
+    'name email'
+  )
+
+  if (order) {
+    res.status(200).json(order)
+  } else {
+    res.status(404)
+    throw new Error('Order not Found')
+  }
+})
