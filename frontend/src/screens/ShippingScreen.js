@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
-import toast from 'react-toastify'
+import { toast } from 'react-toastify'
 import FormContainer from '../components/FormContainer'
 
 import { saveShippingAddress } from '../actions/cartActions'
