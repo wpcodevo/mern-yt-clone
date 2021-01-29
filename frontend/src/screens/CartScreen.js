@@ -59,6 +59,10 @@ const TotalPrice = styled.div`
   align-items: end;
   flex-direction: column;
   margin-top: 2rem;
+
+  div {
+    margin-left: auto;
+  }
 `
 
 const TotalTable = styled.table`
@@ -178,42 +182,45 @@ const CartScreen = ({ match, location, history }) => {
           </Table>
 
           <TotalPrice>
-            <TotalTable>
-              <tbody>
-                <tr>
-                  <Td>
-                    Subtotal (
-                    {cartItems.reduce((acc, item) => acc + item.qty, 0)})
-                  </Td>
-                  <Td>
-                    $
-                    {cartItems
-                      .reduce((acc, item) => acc + item.qty * item.price, 0)
-                      .toFixed(2)}
-                  </Td>
-                </tr>
-                <tr>
-                  <Td>Tax</Td>
-                  <Td></Td>
-                </tr>
-                <tr>
-                  <Td>Total</Td>
-                  <Td className='total'>
-                    $
-                    {cartItems
-                      .reduce((acc, item) => acc + item.qty * item.price, 0)
-                      .toFixed(2)}
-                  </Td>
-                </tr>
-              </tbody>
-            </TotalTable>
-            <TotalLink
-              type='button'
-              disabled={cartItems.length === 0}
-              onClick={checkOutHandler}
-            >
-              Proceed To Checkout
-            </TotalLink>
+            <div>
+              {' '}
+              <TotalTable>
+                <tbody>
+                  <tr>
+                    <Td>
+                      Subtotal (
+                      {cartItems.reduce((acc, item) => acc + item.qty, 0)})
+                    </Td>
+                    <Td>
+                      $
+                      {cartItems
+                        .reduce((acc, item) => acc + item.qty * item.price, 0)
+                        .toFixed(2)}
+                    </Td>
+                  </tr>
+                  <tr>
+                    <Td>Tax</Td>
+                    <Td></Td>
+                  </tr>
+                  <tr>
+                    <Td>Total</Td>
+                    <Td className='total'>
+                      $
+                      {cartItems
+                        .reduce((acc, item) => acc + item.qty * item.price, 0)
+                        .toFixed(2)}
+                    </Td>
+                  </tr>
+                </tbody>
+              </TotalTable>
+              <TotalLink
+                type='button'
+                disabled={cartItems.length === 0}
+                onClick={checkOutHandler}
+              >
+                Proceed To Checkout
+              </TotalLink>
+            </div>
           </TotalPrice>
         </Cart>
       )}

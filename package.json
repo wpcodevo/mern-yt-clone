@@ -7,14 +7,14 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
+    "start": "node  backend/server",
     "server": "nodemon backend/server",
     "client": "yarn --cwd frontend start",
+    "dev": "concurrently \"yarn client\" \"yarn server\"",
     "build": "cd frontend && yarn build",
     "install-client": "cd frontend && yarn install",
-    "dev": "concurrently \"yarn client\" \"yarn server\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
-    "start": "node  backend/server",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn run install-client && yarn run build"
   },
   "dependencies": {
