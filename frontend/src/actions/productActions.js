@@ -18,6 +18,7 @@ export const listProducts = () => async dispatch => {
       type: PRODUCT_LIST_SUCCESS,
       payload: data.data.products,
     })
+    console.log(data)
   } catch (error) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
@@ -39,6 +40,7 @@ export const listProductDetails = id => async dispatch => {
       type: PRODUCT_DETAILS_SUCCESS,
       payload: data.data.product,
     })
+    console.log(data)
   } catch (error) {
     dispatch({
       type: PRODUCT_DETAILS_FAIL,

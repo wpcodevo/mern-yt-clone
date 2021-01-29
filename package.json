@@ -7,7 +7,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node server",
+    "start": "node  backend/server",
     "server": "nodemon backend/server",
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn client\" \"yarn server\"",

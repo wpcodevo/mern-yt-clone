@@ -101,7 +101,7 @@ const Button = styled.button`
 const PlaceOrderScreen = ({ history }) => {
   const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
-  const { order, error, success } = useSelector(state => state.orderCreate)
+  const { order, success } = useSelector(state => state.orderCreate)
 
   const addDecimal = num => {
     return (Number(num * 100) / 100).toFixed(2)
