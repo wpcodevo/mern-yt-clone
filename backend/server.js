@@ -15,19 +15,14 @@ process.on('uncaughtException', err => {
 
 dotenv.config()
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'))
+}
+
 const app = express()
 
 // MiddleWares
 app.use(express.json())
-
-const __dirname = path.resolve()
-
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '/frontend/build')))
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
-  )
-}
 
 // Database
 connectDB()
@@ -40,7 +35,15 @@ app.use('/api/orders', orderRouter)
 app.use(notFound)
 app.use(errorHandler)
 
-const PORT = process.env.PORT || 5100
+const __dirname = path.resolve()
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'))
+  )
+}
+
+const PORT = process.env.PORT || 5000
 
 const server = app.listen(
   PORT,
