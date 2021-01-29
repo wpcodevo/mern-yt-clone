@@ -12,7 +12,7 @@ const ProductDetails = styled.div`
   display: grid;
   grid-template-columns: 1fr 1.2fr;
   gap: 7rem;
-  margin: 10rem 0;
+  margin: 10rem auto;
 
   @media (max-width: 650px) {
     grid-template-columns: 1fr;

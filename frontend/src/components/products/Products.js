@@ -112,7 +112,7 @@ const Products = () => {
         subtitle='Select from the premium product brands and save plenty money'
       />{' '}
       {loading ? (
-        <CustomLoader type='Oval' />
+        <CustomLoader type='Oval' width={40} height={40} />
       ) : error ? (
         <>
           {' '}
