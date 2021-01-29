@@ -109,7 +109,9 @@ const Collection = () => {
           <CollectionItem key={index}>
             <img src={item.url} alt={item.label} />
             <CollectionContent>
-              <CollectionTitle>{item.label}</CollectionTitle>
+              <CollectionTitle>
+                <Link to={item.path}>{item.label}</Link>
+              </CollectionTitle>
               <CollectionLink to={item.path}>SHOP NOW</CollectionLink>
             </CollectionContent>
           </CollectionItem>
