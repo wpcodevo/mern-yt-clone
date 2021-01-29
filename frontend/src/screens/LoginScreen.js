@@ -118,6 +118,7 @@ const LoginScreen = ({ history, location }) => {
   }
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (userInfo) {
       history.push(redirect)
     }

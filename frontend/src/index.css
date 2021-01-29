@@ -32,6 +32,7 @@ input {
   background-color: var(--white);
   color: var(--black);
   font-weight: 400;
+  height: 100%;
 }
 
 h1,

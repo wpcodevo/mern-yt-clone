@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, removeFromCart } from '../actions/cartActions'
 import styled from 'styled-components'
-import { Form, Select } from './ProductScreen'
+import { Form, Select } from './ProductDetailsScreen'
 import Message from '../components/Message'
 import CustomLoader from '../components/CustomLoader'
 
@@ -95,6 +95,7 @@ const CartScreen = ({ match, location, history }) => {
   const { cartItems } = cart
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (productId) {
       dispatch(addToCart(productId, qty))
     }

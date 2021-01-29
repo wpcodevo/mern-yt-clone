@@ -9,6 +9,10 @@ const Wrapper = styled.div`
   height: 100%;
   width: 100%;
   margin: 20rem 0;
+
+  @media (max-width: 567px) {
+    margin: 0rem 0 40rem 0;
+  }
 `
 
 const CustomLoader = ({ type, color, width, height }) => {

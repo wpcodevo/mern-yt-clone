@@ -133,7 +133,7 @@ const PaymentScreen = ({ history }) => {
                 </Text>
               </div>
 
-              <div>
+              {/* <div>
                 <FormGroup>
                   Direct Bank Transfer
                   <Input
@@ -149,7 +149,7 @@ const PaymentScreen = ({ history }) => {
                   There are many variations of passages of Lorem Ipsum
                   available, but the majority have suffered alteration
                 </Text>
-              </div>
+              </div> */}
             </Container>
 
             <Button type='submit'>Continue</Button>

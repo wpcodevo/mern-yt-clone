@@ -85,7 +85,7 @@ const PriceLabel = styled.span`
 
 const Price = styled.div``
 
-const Product = () => {
+const Products = () => {
   const dispatch = useDispatch()
 
   const qty = 1
@@ -156,4 +156,4 @@ const Product = () => {
   )
 }
 
-export default Product
+export default Products

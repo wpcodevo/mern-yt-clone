@@ -30,6 +30,7 @@ const RegisterScreen = ({ history, location }) => {
   const { loading, userInfo } = userLogin
 
   useEffect(() => {
+    window.scrollTo(0, 0)
     if (userInfo) {
       history.push(redirect)
     }
