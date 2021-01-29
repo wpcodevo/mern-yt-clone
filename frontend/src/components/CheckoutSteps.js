@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin: 15rem 0 5rem 0;
+  margin: 15rem 0 0 0;
   padding: 2rem 5rem;
   background-color: var(--white);
 `

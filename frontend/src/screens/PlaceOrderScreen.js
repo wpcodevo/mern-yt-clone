@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutSteps from '../components/CheckoutSteps'
+import { createOrder } from '../actions/orderActions'
 
 const Wrapper = styled.div`
   margin: 10rem 0;
@@ -97,8 +98,10 @@ const Button = styled.button`
   }
 `
 
-const PlaceOrderScreen = () => {
+const PlaceOrderScreen = ({ history }) => {
+  const dispatch = useDispatch()
   const cart = useSelector(state => state.cart)
+  const { order, error, success } = useSelector(state => state.orderCreate)
 
   const addDecimal = num => {
     return (Number(num * 100) / 100).toFixed(2)
@@ -114,6 +117,27 @@ const PlaceOrderScreen = () => {
     Number(cart.itemsPrice) +
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)
+
+  useEffect(() => {
+    if (success) {
+      history.push(`/orders/${order._id}`)
+    }
+    // eslint-disable-next-line
+  }, [history, success])
+
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        shippingPrice: cart.shippingPrice,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    )
+  }
 
   return (
     <>
@@ -186,7 +210,9 @@ const PlaceOrderScreen = () => {
                 </p>
                 <p>${addDecimal(cart.totalPrice)}</p>
               </ContentGroup>
-              <Button type='button'>Place Order</Button>
+              <Button type='button' onClick={placeOrderHandler}>
+                Place Order
+              </Button>
             </Content>
           </Col>
         </Row>

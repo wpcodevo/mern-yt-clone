@@ -4,6 +4,7 @@ import colors from 'colors'
 import connectDB from './config/db.js'
 import productRouter from './routes/productRoutes.js'
 import userRouter from './routes/userRoutes.js'
+import orderRouter from './routes/orderRoutes.js'
 import { notFound, errorHandler } from './middlewares/errorMiddleware.js'
 
 process.on('uncaughtException', err => {
@@ -24,6 +25,7 @@ connectDB()
 // Routes
 app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
+app.use('/api/orders', orderRouter)
 
 app.use(notFound)
 app.use(errorHandler)
