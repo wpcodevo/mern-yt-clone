@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useDispatch, useSelector } from 'react-redux'
+import toast from 'react-toastify'
 import FormContainer from '../components/FormContainer'
 
 import { saveShippingAddress } from '../actions/cartActions'
@@ -29,8 +30,12 @@ const ShippingScreen = ({ history }) => {
 
   const submitHandler = e => {
     e.preventDefault()
-    dispatch(saveShippingAddress({ address, postalCode, city, country }))
-    history.push('/payment')
+    if (address && city && postalCode && country) {
+      dispatch(saveShippingAddress({ address, postalCode, city, country }))
+      history.push('/payment')
+    } else {
+      toast.error('Please fill all fields!')
+    }
   }
 
   return (

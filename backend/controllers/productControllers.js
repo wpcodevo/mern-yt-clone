@@ -1,7 +1,7 @@
 import catchAsync from 'express-async-handler'
 import Product from '../models/productModel.js'
 
-export const getProducts = catchAsync(async (req, res, next) => {
+export const getProducts = catchAsync(async (req, res) => {
   const products = await Product.find()
 
   res.status(200).json({
@@ -10,11 +10,9 @@ export const getProducts = catchAsync(async (req, res, next) => {
       products,
     },
   })
-
-  next()
 })
 
-export const getProductById = catchAsync(async (req, res, next) => {
+export const getProductById = catchAsync(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
   if (!product) {
@@ -28,6 +26,4 @@ export const getProductById = catchAsync(async (req, res, next) => {
       product,
     },
   })
-
-  next()
 })

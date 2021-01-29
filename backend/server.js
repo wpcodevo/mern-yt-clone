@@ -32,9 +32,6 @@ app.use('/api/products', productRouter)
 app.use('/api/users', userRouter)
 app.use('/api/orders', orderRouter)
 
-app.use(notFound)
-app.use(errorHandler)
-
 const __dirname = path.resolve()
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '/frontend/build')))
@@ -43,8 +40,10 @@ if (process.env.NODE_ENV === 'production') {
   )
 }
 
-const PORT = process.env.PORT || 5000
+app.use(notFound)
+app.use(errorHandler)
 
+const PORT = process.env.PORT || 5000
 const server = app.listen(
   PORT,
   console.log(
