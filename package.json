@@ -9,11 +9,11 @@
   "scripts": {
     "start": "node  backend/server",
     "server": "nodemon backend/server",
-    "client": "yarn start --prefix frontend",
+    "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn client\" \"yarn server\"",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix frontend && yarn build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --cwd frontend install && yarn --cwd frontend build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
