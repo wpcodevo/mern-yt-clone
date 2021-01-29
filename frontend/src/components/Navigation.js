@@ -13,8 +13,8 @@ const Nav = styled.nav`
   z-index: 999;
   background-color: var(--white);
   height: 6.5rem;
-  grid-area: header;
   line-height: 6.5rem;
+  grid-area: header;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 
   &.fix-nav {
