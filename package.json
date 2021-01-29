@@ -12,7 +12,8 @@
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn client\" \"yarn server\"",
     "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "data:destroy": "node backend/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --prefix frontend && yarn build --prefix frontend"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
