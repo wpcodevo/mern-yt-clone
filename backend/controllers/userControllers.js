@@ -2,7 +2,7 @@ import catchAsync from 'express-async-handler'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateToken.js'
 
-export const registerUser = catchAsync(async (req, res, next) => {
+export const registerUser = catchAsync(async (req, res) => {
   const { name, email, password } = req.body
 
   const userExist = await User.findOne({ email })
@@ -30,8 +30,6 @@ export const registerUser = catchAsync(async (req, res, next) => {
     res.status(400)
     throw new Error('Invalid User Data')
   }
-
-  next()
 })
 
 export const authUser = catchAsync(async (req, res, next) => {
@@ -68,11 +66,9 @@ export const getUserProfile = catchAsync(async (req, res, next) => {
 
   res.status(404)
   throw new Error('User not Found')
-
-  next()
 })
 
-export const updateUserProfile = catchAsync(async (req, res, next) => {
+export const updateUserProfile = catchAsync(async (req, res) => {
   const user = await User.findById(req.user._id)
   if (user) {
     user.name = req.body.name || user.name
@@ -93,6 +89,4 @@ export const updateUserProfile = catchAsync(async (req, res, next) => {
 
   res.status(404)
   throw new Error('User not Found')
-
-  next()
 })

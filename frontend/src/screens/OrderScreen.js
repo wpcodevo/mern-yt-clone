@@ -21,6 +21,7 @@ const Row = styled.div`
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    gap: 5rem 0;
   }
 `
 const Col = styled.div`
@@ -103,13 +104,25 @@ const ContentGroup = styled.div`
 //   }
 // `
 
-const OrderScreen = ({ match }) => {
+const Heading = styled.h1`
+  margin-bottom: 5rem;
+  padding-left: 0.5rem;
+
+  @media (max-width: 567px) {
+    font-size: 1.8rem;
+  }
+`
+
+const OrderScreen = ({ match, history }) => {
   const [sdkReady, setSdkReady] = useState(false)
   const orderId = match.params.id
 
   const dispatch = useDispatch()
   const orderDetails = useSelector(state => state.orderDetails)
   const { loading, error, order } = orderDetails
+
+  const userLogin = useSelector(state => state.userLogin)
+  const { userInfo } = userLogin
 
   const orderPay = useSelector(state => state.orderPay)
   const { loading: loadingPay, success: successPay } = orderPay
@@ -125,6 +138,9 @@ const OrderScreen = ({ match }) => {
   }
 
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login')
+    }
     window.scrollTo(0, 0)
 
     const addPayPalScript = async () => {
@@ -149,10 +165,9 @@ const OrderScreen = ({ match }) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, orderId, successPay, order])
+  }, [dispatch, orderId, successPay, history, userInfo, order])
 
   const onPaymentHandler = paymentResult => {
-    console.log(paymentResult)
     dispatch(payOrder(orderId, paymentResult))
   }
 
@@ -162,8 +177,8 @@ const OrderScreen = ({ match }) => {
     <Message type='success' message={error} />
   ) : (
     <>
-      <h1>Order ${order._id}</h1>
       <Wrapper>
+        <Heading>Order: {order._id}</Heading>
         <Row className='container'>
           <Col>
             <Group>

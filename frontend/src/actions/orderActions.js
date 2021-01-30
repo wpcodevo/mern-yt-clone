@@ -11,6 +11,9 @@ import {
   ORDER_PAY_REQDUEST,
   ORDER_PAY_SUCCESS,
   ORDER_PAY_FAIL,
+  ORDER_LIST_MY_SUCCESS,
+  ORDER_LIST_MY_FAIL,
+  ORDER_LIST_MY_REQDUEST,
 } from '../constants/orderConstants'
 
 export const createOrder = order => async (dispatch, getState) => {
@@ -40,8 +43,6 @@ export const createOrder = order => async (dispatch, getState) => {
       type: ORDER_CREATE_SUCCESS,
       payload: data,
     })
-
-    localStorage.setItem('userInfo', JSON.stringify(data))
   } catch (error) {
     const message =
       error.response && error.response.data.message
@@ -107,11 +108,15 @@ export const payOrder = (orderId, paymentResult) => async (
       },
     }
 
-    const { data } = await axios.patch(
+    const { data } = await axios.put(
       `/api/orders/${orderId}/pay`,
-      config,
-      paymentResult
+      paymentResult,
+      config
     )
+
+    if (data) {
+      toast.success('Paid successfully')
+    }
 
     dispatch({
       type: ORDER_PAY_SUCCESS,
@@ -124,6 +129,38 @@ export const payOrder = (orderId, paymentResult) => async (
         : error.response
 
     dispatch({ type: ORDER_PAY_FAIL, payload: message })
+
+    toast.error(message)
+  }
+}
+
+export const listMyOrders = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ORDER_LIST_MY_REQDUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/orders/myorders`, config)
+
+    dispatch({
+      type: ORDER_LIST_MY_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.response
+
+    dispatch({ type: ORDER_LIST_MY_FAIL, payload: message })
 
     toast.error(message)
   }

@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  margin: 10rem 0 40rem 0;
+  margin: 0rem 0 40rem 0;
 
   @media (max-width: 567px) {
     margin: 0rem 0 40rem 0;

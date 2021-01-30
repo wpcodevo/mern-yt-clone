@@ -13,7 +13,7 @@ router.route('/').post(registerUser)
 router
   .route('/profile')
   .get(protect, getUserProfile)
-  .patch(protect, updateUserProfile)
+  .put(protect, updateUserProfile)
 router.post('/login', authUser)
 
 export default router

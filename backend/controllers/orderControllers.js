@@ -66,3 +66,9 @@ export const updateOrderToPaid = catchAsync(async (req, res) => {
     throw new Error('Order not Found')
   }
 })
+
+export const getMyOrders = catchAsync(async (req, res) => {
+  const orders = await Order.find({ user: req.user._id })
+
+  res.status(200).json(orders)
+})

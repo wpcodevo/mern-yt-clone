@@ -78,7 +78,7 @@ const ContentGroup = styled.div`
   }
 `
 
-const Button = styled.button`
+export const Button = styled.button`
   display: block;
   cursor: pointer;
   outline: none;
