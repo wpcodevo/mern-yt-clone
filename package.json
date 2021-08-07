@@ -11,7 +11,7 @@
     "server": "nodemon backend/server",
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn client\" \"yarn server\"",
-    "build": "cd frontend && yarn build",
+    "build": "yarn start",
     "install-client": "cd frontend && yarn install",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d",
