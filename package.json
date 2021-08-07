@@ -11,7 +11,7 @@
     "server": "nodemon backend/server",
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn client\" \"yarn server\"",
-    "build": "yarn dev",
+    "build": "yarn start",
     "install-client": "cd frontend && yarn install",
     "data:import": "node backend/seeder",
     "data:destroy": "node backend/seeder -d"
@@ -19,6 +19,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-async-handler": "^1.1.4",
