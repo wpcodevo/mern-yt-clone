@@ -14,7 +14,8 @@
     "build": "yarn start",
     "install-client": "cd frontend && yarn install",
     "data:import": "node backend/seeder",
-    "data:destroy": "node backend/seeder -d"
+    "data:destroy": "node backend/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn run install-client && yarn run build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
